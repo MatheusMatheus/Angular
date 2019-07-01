@@ -1,0 +1,339 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "3",
+    "title" : "Treinamento Angular"
+  },
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/cliente/todos" : {
+      "get" : {
+        "tags": ["Cliente"],
+        "summary" : "Consuta todos os clientes",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items": {
+                "$ref" : "#/definitions/ClienteDTO"
+              }
+            }
+          }
+        },
+      }
+    },
+    "/cliente/{cpf}" : {
+      "get" : {
+        "tags": ["Cliente"],
+        "summary" : "Consulta um cliente por CPF",
+        "parameters" : [ {
+          "name" : "cpf",
+          "in" : "path",
+          "description" : "CPF do Cliente",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ClienteDTO"
+            }
+          }
+        },
+      }
+    },
+    "/cliente/{cpf}/cadastra" : {
+      "post" : {
+        "tags": ["Cliente"],
+        "summary" : "Cadastra um cliente",
+        "parameters" : [ {
+          "name" : "cpf",
+          "in" : "path",
+          "description" : "CPF do Cliente",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        }, {
+          "name" : "nome",
+          "in" : "query",
+          "description" : "Nome do Cliente",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/cliente/{cpf}/ativa" : {
+      "put" : {
+        "tags": ["Cliente"],
+        "summary" : "Ativa um cliente por CPF, que encontra-se em situação pendente",
+        "parameters" : [ {
+          "name" : "cpf",
+          "in" : "path",
+          "description" : "CPF do Cliente",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/cliente/{cpf}/remove" : {
+      "delete" : {
+        "tags": ["Cliente"],
+        "summary" : "Remove um cliente por CPF",
+        "parameters" : [ {
+          "name" : "cpf",
+          "in" : "path",
+          "description" : "CPF do Cliente",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/conta/todas" : {
+      "get" : {
+        "tags": ["Conta"],
+        "summary" : "Consuta todas as contas",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items": {
+                "$ref" : "#/definitions/ContaDTO"
+              }
+            }
+          }
+        },
+      }
+    },
+    "/conta/{numero}" : {
+      "get" : {
+        "tags": ["Conta"],
+        "summary" : "Consulta um conta por número",
+        "parameters" : [ {
+          "name" : "numero",
+          "in" : "path",
+          "description" : "Número da Conta",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContaDTO"
+            }
+          }
+        },
+      }
+    },
+    "/conta/{numero}/encerra" : {
+      "put" : {
+        "tags": ["Conta"],
+        "summary" : "Encerra uma conta ativa e que não possui saldo",
+        "parameters" : [ {
+          "name" : "numero",
+          "in" : "path",
+          "description" : "Número da Conta",
+          "required" : true,
+          "type" : "integer",
+          "pattern" : "\\d+",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/conta/abertura" : {
+      "post" : {
+        "tags": ["Conta"],
+        "summary" : "Abre uma conta",
+        "parameters" : [ {
+          "name" : "tipo",
+          "in" : "query",
+          "description" : "Tipo da Conta: 1 - Corrente, 2 - Poupanca",
+          "required" : true,
+          "type" : "integer",
+          "enum": ["1", "2"]
+        }, {
+          "name" : "cpf",
+          "in" : "query",
+          "description" : "CPF do Titular",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/conta/{numero}/deposita" : {
+      "put" : {
+        "tags": ["Transacao"],
+        "summary" : "Realiza um depósito na conta por número",
+        "parameters" : [ {
+          "name" : "numero",
+          "in" : "path",
+          "description" : "Número da Conta",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "valor",
+          "in" : "query",
+          "description" : "Valor",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/conta/{numero}/saca" : {
+      "put" : {
+        "tags": ["Transacao"],
+        "summary" : "Realiza um saque na conta por número",
+        "parameters" : [ {
+          "name" : "numero",
+          "in" : "path",
+          "description" : "Número da Conta",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "valor",
+          "in" : "query",
+          "description" : "Valor",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    },
+    "/conta/transfere" : {
+      "put" : {
+        "tags": ["Transacao"],
+        "summary" : "Realiza uma transferência entre contas",
+        "parameters" : [ {
+          "name" : "trasnferencia",
+          "in" : "body",
+          "description" : "Dados da transferência",
+          "required" : true,
+          "schema": {
+            "$ref": "#/definitions/TransferenciaDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        },
+      }
+    }
+  },
+  "definitions" : {
+    "ClienteDTO" : {
+      "type" : "object",
+      "properties" : {
+        "cpf" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nome" : {
+          "type" : "string"
+        },
+        "situacao" : {
+          "type" : "string",
+          "enum" : ["ATIVO", "PENDENTE"]
+        }
+      }
+    },
+    "TransferenciaDTO" : {
+      "type" : "object",
+      "properties" : {
+        "numeroContaDeDebito" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numeroContaDeCredito" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "valor" : {
+          "type" : "number"
+        }
+      }
+    },
+    "ContaDTO" : {
+      "type" : "object",
+      "properties" : {
+        "agencia" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numero" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "saldo" : {
+          "type" : "number"
+        },
+        "nome" : {
+          "type" : "string"
+        },
+        "tipo" : {
+          "type" : "string",
+          "enum" : ["CORRENTE", "POUPANCA"]
+        },
+        "titular": {
+          "$ref": "#/definitions/ClienteDTO"
+        },
+        "estado" : {
+          "type" : "string",
+          "enum" : ["ATIVO", "INATIVA"]
+        },
+        "limiteChequeEspecial": {
+          "type" : "number"
+        },
+        "diaDeAniversario": {
+          "type" : "integer"
+        }
+      }
+    }
+  }
+}

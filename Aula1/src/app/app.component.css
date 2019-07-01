@@ -1,0 +1,13 @@
+::ng-deep label {
+  font-weight: bold;
+  font-family: Arial;
+  color: blue;
+
+  display: block;
+  margin-bottom: 20px;
+}
+
+app-dados-cliente {
+  display: block;
+  border: 1px solid black;
+}

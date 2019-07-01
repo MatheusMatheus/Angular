@@ -1,0 +1,36 @@
+<!-- Listagem de cliente -->
+<app-listagem-clientes
+  [clientes]="clientes"
+  (clienteSelecionado)="visualizando = $event; cadastrando = undefined"
+></app-listagem-clientes>
+
+<!-- Cadastro de novo cliente -->
+<ng-container *ngIf="cadastrando" >
+  <hr/>
+
+  <app-formulario-cliente
+    [cliente]="cadastrando"
+    (clienteChange)="cadastrar($event)"
+  ></app-formulario-cliente>
+</ng-container>
+<ng-container *ngIf="!cadastrando && !visualizando">
+  <hr/>
+
+  <button (click)="novoCadastro()" >Cadastrar</button>
+</ng-container>
+
+<!-- Apresentação e Alteração de Cliente já existente -->
+<ng-container *ngIf="visualizando" >
+  <hr/>
+
+  <app-dados-cliente
+    [cliente]="visualizando"
+  ></app-dados-cliente>
+
+  <hr/>
+
+  <button (click)="ativar()" *ngIf="visualizando.status === 'PENDENTE'" >Ativar</button>
+  <button (click)="remover()" >Excluir</button>
+  <button (click)="visualizando = null" >Cancelar</button>
+</ng-container>
+

@@ -1,0 +1,9 @@
+<label>CPF:</label> {{ cliente.cpf | cpf }}<br/>
+<label>Nome:</label> {{cliente.nome}}<br/>
+<label>Situação:</label>
+  <i *ngIf="cliente.status == 'ATIVO'"
+    class="fa fa-smile-o"></i>
+  <i *ngIf="cliente.status == 'INATIVO'"
+    class="fa fa-circle-o"></i>
+  {{ cliente.status | statusCliente }}
+<br/>

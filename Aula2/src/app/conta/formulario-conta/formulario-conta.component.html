@@ -1,0 +1,80 @@
+<fieldset>
+  <legend>Nova Conta</legend>
+
+  <form
+    [ngClass]="{'ng-submitted': form.submitted}"
+    (submit)="salvar(form)" #form="ngForm">
+    <div class="form-itens">
+      <div class="item">
+        <label>Agência:</label>
+        <input name="agencia" [(ngModel)]="conta.agencia"
+               required maxlength="3" minlength="3"
+               #modelAgencia="ngModel"
+        />
+        <app-mensagens-erro [model]="modelAgencia"></app-mensagens-erro>
+      </div>
+
+      <div class="item">
+        <label>Número:</label>
+        <input name="numero" [(ngModel)]="conta.numero"
+               required minlength="7" maxlength="7"
+               #modelNumero="ngModel"
+        />
+        <app-mensagens-erro [model]="modelNumero"></app-mensagens-erro>
+      </div>
+
+      <div class="item">
+        <label>Saldo:</label>
+        <input name="saldo" [(ngModel)]="conta.saldo" required
+               #modelSaldo="ngModel"
+               pattern="\d+\,\d{2}"/>
+        <app-mensagens-erro [model]="modelSaldo"></app-mensagens-erro>
+      </div>
+
+      <div class="item">
+        <label>Tipo:</label>
+        <app-select-tipo-conta
+          name="tipo" [(ngModel)]="conta.tipo"
+          #modelTipo="ngModel" required
+        ></app-select-tipo-conta>
+        <app-mensagens-erro [model]="modelTipo"></app-mensagens-erro>
+      </div>
+
+      <div class="item">
+        <label>Titular:</label>
+        <app-select-cliente
+          [clientes]="clientes"
+          name="titular" [(ngModel)]="conta.titular"
+          required #titularModel="ngModel" >
+        </app-select-cliente>
+        <app-mensagens-erro [model]="modelTipo"></app-mensagens-erro>
+      </div>
+
+      <div class="item">
+        <label>Estado:</label>
+        <app-select-estado-conta
+                name="estado" required
+                #modelEstado="ngModel"
+                [(ngModel)]="conta.estado" >
+        </app-select-estado-conta>
+        <app-mensagens-erro [model]="modelEstado"></app-mensagens-erro>
+      </div>
+
+      <div class="item" *ngIf="conta.tipo == 'POUPANCA'">
+        <label>Dia de Aniversário:</label>
+        <input name="diaDeAniversario"
+               required [min]="1" max="31"
+               #modelDiaAniversario="ngModel"
+               [(ngModel)]="conta.diaDeAniversario" />
+        <app-mensagens-erro [model]="modelDiaAniversario"></app-mensagens-erro>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button>Salvar</button>
+      <button type="reset" (click)="limpar()">Limpar</button>
+    </div>
+
+  </form>
+
+</fieldset>

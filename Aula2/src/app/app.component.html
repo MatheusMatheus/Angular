@@ -1,0 +1,10 @@
+<app-formulario-conta
+  [clientes]="clientesApp"
+  (novaConta)="adicionaConta($event)"
+></app-formulario-conta>
+
+<hr/>
+
+<app-listagem-contas
+  [contas]="contasApp"
+></app-listagem-contas>

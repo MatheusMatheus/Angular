@@ -1,0 +1,15 @@
+<div class="menu">
+  <a [ngClass]="{'active': visao === 'CLI'}" (click)="visao = 'CLI'">Clientes</a>
+  <a [ngClass]="{'active': visao === 'CTA'}" (click)="visao = 'CTA'">Contas</a>
+
+
+  <a [ngClass]="{'active': visao === 'DEP'}" (click)="visao = 'DEP'">Depósito</a>
+  <a [ngClass]="{'active': visao === 'SAQ'}" (click)="visao = 'SAQ'">Saque</a>
+  <a [ngClass]="{'active': visao === 'TEF'}" (click)="visao = 'TEF'">Transferência</a>
+</div>
+
+<app-crud-cliente *ngIf="visao === 'CLI'"></app-crud-cliente>
+<app-crud-conta *ngIf="visao === 'CTA'"></app-crud-conta>
+<app-deposito *ngIf="visao === 'DEP'"></app-deposito>
+<app-saque *ngIf="visao === 'SAQ'"></app-saque>
+<app-transferencia *ngIf="visao === 'TEF'"></app-transferencia>
